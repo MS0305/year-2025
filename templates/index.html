@@ -10,7 +10,7 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #36bfc6;
+            background-color: #3fecef;
         }
         video, img {
             border: 2px solid #000;
@@ -18,16 +18,17 @@
             max-width: 80%;
             border-radius: 5%;
         }
-        .celebration {
-            display: none;
-            font-size: 2rem;
-            color: #ff5722;
+        
+        .image {
+            text-align: center;
+            scale: 70%;
         }
     </style>
 </head>
 <body>
     <h1 id="message">Counting Fingers...</h1>
     <img src="/video_feed" id='video' alt="Video Feed" style="max-width: 100%; height: auto;">
+    
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script>
         
@@ -35,13 +36,21 @@
         function checkFingerCount() {
             $.getJSON('/get_finger_count', function(data) {
                 const fingerCount = data.finger_count;
+                var image = document.getElementById('new_year');
+                
                 if (fingerCount === 2) {
                     confetti();
                     // document.getElementById("message").innerHTML = "🎉 Congratulations! You showed 2 fingers!";
-                    document.getElementById("message").innerHTML = `🎉 Hello ${name} <br> I Wish you a <br> A very Happy New Year !!!`;
+                    document.getElementById("message").innerHTML = `🎉 Hello ${name} <br>I Wish you a <br>A very Happy New Year !!!`;
+                    document.body.style.backgroundColor = "black"; 
+                    document.body.style.color = "white";
+                    image.style.opacity = '1';
                 } else {
-                    // document.getElementById("message").innerHTML = `Fingers Detected: ${fingerCount}`;
+                    //document.getElementById("message").innerHTML = `Fingers Detected: ${fingerCount}`;
                     document.getElementById("message").innerHTML = "Do a Victory Sign to Celebrate ";
+                    document.body.style.backgroundColor = "#3fecef"; 
+                    document.body.style.color = "black";
+                    image.style.opacity = '0';
                 }
             });
         }
@@ -49,5 +58,9 @@
         // Check finger count every 500ms
         setInterval(checkFingerCount, 500);
     </script>
+    <div class="image">
+        <img src="https://img.pikbest.com/backgrounds/20241114/a-black-rock-happy-new-year-2025-with-yellow-flowers-background_11058448.jpg!w700wp" id="new_year" alt="Happy new year">
+    </div>
+    
 </body>
 </html>
