@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finger Counter</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="node_modules/confetti-js/dist/index.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #36bfc6;
+        }
+        video, img {
+            border: 2px solid #000;
+            margin-top: 20px;
+            max-width: 80%;
+            border-radius: 5%;
+        }
+        .celebration {
+            display: none;
+            font-size: 2rem;
+            color: #ff5722;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="message">Counting Fingers...</h1>
+    <img src="/video_feed" id='video' alt="Video Feed" style="max-width: 100%; height: auto;">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        
+        var name = prompt(String("what is your name ?"));
+        function checkFingerCount() {
+            $.getJSON('/get_finger_count', function(data) {
+                const fingerCount = data.finger_count;
+                if (fingerCount === 2) {
+                    confetti();
+                    // document.getElementById("message").innerHTML = "🎉 Congratulations! You showed 2 fingers!";
+                    document.getElementById("message").innerHTML = `🎉 Hello ${name} <br> I Wish you a <br> A very Happy New Year !!!`;
+                } else {
+                    // document.getElementById("message").innerHTML = `Fingers Detected: ${fingerCount}`;
+                    document.getElementById("message").innerHTML = "Do a Victory Sign to Celebrate ";
+                }
+            });
+        }
+
+        // Check finger count every 500ms
+        setInterval(checkFingerCount, 500);
+    </script>
+</body>
+</html>
